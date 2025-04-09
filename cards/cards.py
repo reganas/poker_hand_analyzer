@@ -25,13 +25,13 @@ class Card:
         return f"Card('{self.rank}', '{self.suit}')"
     
     def __eq__(self, other):
-        '''Check if two cards are equal based on rank and suit.'''
+        
         if isinstance(other, Card):
             return self.rank == other.rank and self.suit == other.suit
         return False
     
     def __hash__(self):
-        '''Allow cards to be used in sets and as dictionary keys'''
+        
         return hash((self.rank, self.suit))
     
     @property
@@ -41,7 +41,7 @@ class Card:
     @rank.setter
     def rank(self, value):
         if value not in Card.RANK_MAP:
-            raise ValueError("Invalid rank selected. Please choose from 2 to A")
+            raise ValueError("Invalid rank selected. Please choose from 2-10 or A/K/Q/J")
         return self._rank
     
     @ property
@@ -54,23 +54,10 @@ class Card:
             raise ValueError("Invalid suit selected. Please choose from 'diamons', spades', hearts', or 'clubs'")
         return self._suit
     
-    def to_treys_format(card):
-        '''
-        Converts a Card object to the 'trey' format (e.g, "Ah" for Ace of hearts)
-        '''
+def to_treys_format(card):
     
+    return f"{Card.RANK_MAP[card.rank]}{Card.SUIT_MAP[card.suit]}"
 
     
     
     
-# Card symbols using Unicode
-# spades = "\u2660"
-# hearts = "\u2665"
-# diamonds = "\u2666"
-# clubs = "\u2663"
-
-# # Display the symbols
-# print("Spades:", spades)
-# print("Hearts:", hearts)
-# print("Diamonds:", diamonds)
-# print("Clubs:", clubs)

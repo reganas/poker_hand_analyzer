@@ -1,5 +1,4 @@
-from deck import Deck
-from cards import Card
+from cards.cards import Card
 import re
 
 def validate_card_input(card_input, deck):

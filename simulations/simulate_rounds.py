@@ -1,5 +1,5 @@
 import random
-from hand import Hand
+from hands.hand import Hand
 
 def simulate_round(player_hand, opponent_hands, deck):
     

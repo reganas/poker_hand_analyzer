@@ -1,11 +1,8 @@
-def evaluate_two_cards(card1, card2):
+from hands.hand import Hand
+
+def evaluate_two_cards(card1, card2):  
     
-    rank_order = {
-            '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8,
-            '9': 9, '10': 10, 'J': '11', 'Q': 12, 'K': 13, 'A': 14
-        }
-    
-    rank1, rank2 = rank_order[card1.rank], rank_order[card2.rank]
+    rank1, rank2 = Hand.rank_to_value(card1.rank), Hand.rank_to_value(card2.rank)
     suit1, suit2 = card1.suit, card2.suit
     
     if rank1 == rank2:

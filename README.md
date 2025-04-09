@@ -1,14 +1,19 @@
-Poker Hand Analyzer & Strategy Guide
+Poker Hand Analyzer
 
 Overview
-This project simulates a poker hand evaluator that detects hand strengths, suggests the best moves based on probabilities, simulates multiple hands to estimate win rates, tracks past hands and player performance, and provides an interactive CLI for user input.
+This project simulates a poker hand evaluator that evaluates the hands, evaluates win probabilities as per user's input.
 
 Features
 - Hand Evaluation
 - Win Probability Estimation
-- Strategy Suggestions
-- Hand History Tracking
-- Interactive CLI
+- Opponent Hand simulation
+- Interactive CLI for user input
 
-License
-This project is licensed by Justinas Steikunas.
+Istallation:
+1. Clone the repository (GitBash):
+
+git clone https://github.com/your-repo/poker-hand-analyzer.git
+cd poker-hand-analyzer
+
+
+
