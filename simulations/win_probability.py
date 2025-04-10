@@ -36,7 +36,7 @@ def calculate_win_probability(player_hand, opponent_hands, deck, num_simulations
             evaluator.evaluate(opp_hand, community_cards) for opp_hand in opponent_hands_treys
         ]
         
-        if all(player_score <= opp_score for opp_score in opponent_scores): # lower score is better
+        if all(player_score <= opp_score for opp_score in opponent_scores):
             wins += 1
         
     win_probability = (wins / num_simulations) * 100

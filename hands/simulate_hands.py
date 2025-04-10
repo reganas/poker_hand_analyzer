@@ -5,7 +5,7 @@ def simulate_opponent_hands(player_cards, num_opponents):
     
     deck = Deck()
     
-    deck.cards = [card for card in deck.cards if card not in player_cards] # Remove player's cards
+    deck.cards = [card for card in deck.cards if card not in player_cards] 
     
     opponent_hands = []
     for _ in range(num_opponents):
