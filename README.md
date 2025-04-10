@@ -7,6 +7,7 @@ Features
 - Hand Evaluation
 - Win Probability Estimation
 - Opponent Hand simulation
+- Hand history
 - Interactive CLI for user input
 
 Istallation:
