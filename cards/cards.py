@@ -9,8 +9,8 @@ class Card:
     }
     
     def __init__(self, rank, suit):
-        self._rank = rank
-        self._suit = suit
+        self.rank = rank
+        self.suit = suit
         
     def __str__(self):
         suit_symbols = {
@@ -42,7 +42,7 @@ class Card:
     def rank(self, value):
         if value not in Card.RANK_MAP:
             raise ValueError("Invalid rank selected. Please choose from 2-10 or A/K/Q/J")
-        return self._rank
+        self._rank = value 
     
     @ property
     def suit(self):
@@ -51,8 +51,8 @@ class Card:
     @suit.setter
     def suit(self, value):
         if value not in Card.SUIT_MAP:
-            raise ValueError("Invalid suit selected. Please choose from 'diamons', spades', hearts', or 'clubs'")
-        return self._suit
+            raise ValueError("Invalid suit selected. Please choose from 'diamonds', spades', hearts', or 'clubs'")
+        self._suit = value
     
 def to_treys_format(card):
     

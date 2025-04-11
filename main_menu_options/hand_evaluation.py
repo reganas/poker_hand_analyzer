@@ -1,8 +1,11 @@
 from cards.deck import Deck
+from cards.cards import to_treys_format
 from hands.simulate_hands import simulate_opponent_hands
 from cards.validate_cards import validate_card_input
 from simulations.win_probability import calculate_win_probability
 from simulations.suggested_best_move import suggest_best_move
+from treys import Card as TreysCard
+from rich.console import Console
 
 def evaluate_hand(hand_history):
     """
@@ -10,14 +13,17 @@ def evaluate_hand(hand_history):
     
     Args:
         hand_history (HandHistory): The HandHistory object to track the round. 
+    
     """
     
     print ("\nEnter 'exit' to quit or stop the program at any point of time.")
+    print("\nValid card ranks: 2-10, valid card suits: 'spades', 'hearts', 'diamonds', or clubs.")
     
     while True:
         
         deck = Deck()
         deck.shuffle()
+        console = Console()
     
         while True:
             num_players_input = input("\nEnter the number of players (2-10, including you): ")
@@ -57,18 +63,21 @@ def evaluate_hand(hand_history):
             elif card2 in selected_cards:
                 print("\nYou have already selected this card. Please choose a different one.")
         
-        print(f"\nYour hand: {card1} {card2}")
-        
+        console.print(f"[bold blue]\nYour hand:[/bold blue]")
+        treys_cards = [TreysCard.new(to_treys_format(card)) for card in [card1, card2]]
+        TreysCard.print_pretty_cards(treys_cards)
+
         opponent_hands = simulate_opponent_hands([card1, card2], num_opponents=num_players_input - 1)
         for i, cards in enumerate(opponent_hands, start=1):
-            print(f"\nOpponent {i}: {cards[0]} {cards[1]}\n")
+            console.print(f"\n[bold magenta]Opponent {i}:[/bold magenta]")
+            treys_cards = [TreysCard.new(to_treys_format(card)) for card in cards]
+            TreysCard.print_pretty_cards(treys_cards)
         
-        
-        win_probability = calculate_win_probability([card1, card2], opponent_hands, deck)
-        print(f"\nWin Probability: {win_probability:.2f}%")
+        win_probability = calculate_win_probability([card1, card2], opponent_hands)
+        console.print(f"\n[bold yellow]Win Probability:[/bold yellow] {win_probability:.2f}%")
         
         best_move = suggest_best_move(win_probability, num_players_input)
-        print(f"\nSuggested Move: {best_move}")
+        console.print(f"\n[bold green]Suggested Move:[/bold green] {best_move}")
         
         hand_history.add_hand([card1, card2], opponent_hands, win_probability, best_move)
         

@@ -1,7 +1,7 @@
 from cards.cards import to_treys_format
 from treys import Card, Evaluator, Deck
 
-def calculate_win_probability(player_hand, opponent_hands, deck, num_simulations=10000):
+def calculate_win_probability(player_hand, opponent_hands, num_simulations=10000):
 
     evaluator = Evaluator()
     wins = 0

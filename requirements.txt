@@ -1,1 +1,3 @@
 treys
+rich
+pytest
