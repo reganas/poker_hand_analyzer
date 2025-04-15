@@ -8,15 +8,7 @@ class Hand:
 
     @staticmethod
     def rank_to_value(rank: str) -> int:
-        """
-        Converts a card rank to its numerical value.
-
-        Args:
-            rank (str): The rank of the card.
-
-        Returns:
-            int: The numerical value of the rank.
-        """
+        
         rank_order = {
             "2": 2,
             "3": 3,
@@ -35,12 +27,7 @@ class Hand:
         return rank_order[rank]
 
     def evaluate(self) -> int:
-        """
-        Evaluate the strength of the hand.
-
-        Returns:
-            int: The strength score of the hand.
-        """
+        
         ranks = [card.rank for card in self.cards]
         suits = [card.suit for card in self.cards]
 

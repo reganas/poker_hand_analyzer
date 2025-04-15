@@ -1,16 +1,6 @@
 
 
 def suggest_best_move(win_probability: float, num_players: int) -> str:
-    """
-    Suggest the best move (fold, call, raise) based on the win probability and numbers of players.
-
-    Args:
-        win_probability (float): The player's win probability as a percentage.
-        num_players (int): The total number of players in the game (including the user).
-
-    Returns:
-        str: The suggested move ('Fold', 'Call', or 'Raise')
-    """
 
     if num_players <= 3:
         fold_threshold = 20

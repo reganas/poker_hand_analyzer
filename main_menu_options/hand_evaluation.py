@@ -10,14 +10,7 @@ from main_menu_options.hand_history import HandHistory
 
 
 def evaluate_hand(hand_history: HandHistory) -> None:
-    """
-    Evaluate the player's hand and track the results in hand history.
-
-    Args:
-        hand_history (HandHistory): The HandHistory object to track the round.
-
-    """
-
+    
     print("\nEnter 'exit' to quit or stop the program at any point of time.")
     print(
         "\nValid card ranks: 2-10, valid card suits: 'spades', 'hearts', 'diamonds', or clubs."
@@ -28,7 +21,7 @@ def evaluate_hand(hand_history: HandHistory) -> None:
         deck = Deck()
         deck.shuffle()
         console = Console()
-
+        
         while True:
             num_players_input = input(
                 "\nEnter the number of players (2-10, including you): "

@@ -1,4 +1,3 @@
-import pytest
 from cards.cards import Card
 from hands.hand_strength import evaluate_two_cards
 

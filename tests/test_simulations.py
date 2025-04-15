@@ -1,6 +1,4 @@
-import pytest
 from simulations.suggested_best_move import suggest_best_move
-from simulations.simulate_rounds import simulate_round
 
 
 def test_best_move():

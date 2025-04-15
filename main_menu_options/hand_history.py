@@ -3,24 +3,13 @@ from typing import List, Dict, Any
 
 
 class HandHistory:
-    """
-    A class to track, save, and load hand history.
-    """
-
+   
     def __init__(self, file_path: str) -> None:
         self.hands: List[Dict[str, Any]] = []
         self.file_path = file_path
 
     def add_hand(self, player_hand, opponent_hands, win_probability, best_move):
-        """
-        Add a hand to the history:
-
-        Args:
-             player_hand (list): The player's hand (list of card objects).
-             opponent_hands (list): The opponents' hands (list of lists of Card objects).
-             probability (float): The claculated win probability.
-             suggested_move (str); The suggested move for the player.
-        """
+        
         self.hands.append(
             {
                 "player_hand": [str(card) for card in player_hand],
@@ -33,9 +22,7 @@ class HandHistory:
         )
 
     def save_hands_to_file(self) -> None:
-        """
-        Save the hand history to a JSON file.
-        """
+        
         try:
             with open(self.file_path, "w") as file:
 
@@ -46,27 +33,17 @@ class HandHistory:
             print(f"Error saving hand history. {e}")
 
     def load_hands_from_file(self) -> None:
-        """
-        Load the hand history from a JSON file.
-        """
+        
         try:
             with open(self.file_path, "r") as file:
                 self.hands = json.load(file)
             print(f"Hand history loaded from {self.file_path}")
-        except FileNotFoundError:
+        except (FileNotFoundError, json.JSONDecodeError):
             print(f"No existing hand history found. Starting fresh.")
-            self.hands = []
-        except json.JSONDecodeError:
-            print(f"Error decoding hand history file. Starting fresh.")
-            self.hands = []
-        except Exception as e:
-            print(f"An unexpected error occured while loading the hand history: {e}")
             self.hands = []
 
     def display_hands(self) -> None:
-        """
-        Display the history in a readable format.
-        """
+        
         if not self.hands:
             print("No hand history available.")
             return

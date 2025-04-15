@@ -12,6 +12,7 @@ def main():
 
         if choice == "1":
             evaluate_hand(hand_history)
+            
         elif choice == "2":
             hand_history.display_hands()
         elif choice == "3":
@@ -19,7 +20,7 @@ def main():
             print("Exiting the program. Hand history saved.")
             break
         else:
-            print("Invalid choice. Please select a valid option.")
+            print("\nInvalid choice. Please select a valid option.")
 
 
 if __name__ == "__main__":

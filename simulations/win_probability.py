@@ -5,17 +5,7 @@ from typing import List
 
 
 def calculate_win_probability(player_hand: List[Card], opponent_hands: List[List[Card]], num_simulations: int = 10000) -> float:
-    """
-    Calculate the player's win probability over a number of simulated rounds.
-
-    Args:
-        player_hand (List[Card]): The player's hand (list of two Card objects).
-        opponent_hands (List[List[Card]]): A list of hands for each opponent (each hand is a list of two Card objects)
-        num_simulations (int, optional): The number of simulations to run. Defaults to 10000.
-
-    Returns:
-        float: The player's win probability as a percentage.
-    """
+    
     evaluator = Evaluator()
     wins = 0
 
