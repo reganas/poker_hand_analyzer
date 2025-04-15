@@ -62,15 +62,15 @@ This project simulates a poker hand evaluator that evaluates the player's and op
 
 - pytest tests
 
-4. ## To check type hints run in the terminal:
+## 4. To check type hints run in the terminal:
 
 - mypy . --ignore-missing-imports
 
-5. ## To run the program, use the following command-line:
+## 5. To run the program, use the following command-line:
 
 - python main.py
 
-6. ## Requirements
+## 6. Requirements
 
 - Python 3.8 or higher
 - pip (Python package manager)
