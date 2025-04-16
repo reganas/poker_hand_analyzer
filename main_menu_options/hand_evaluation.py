@@ -7,79 +7,42 @@ from simulations.suggested_best_move import suggest_best_move
 from treys import Card as TreysCard
 from rich.console import Console
 from main_menu_options.hand_history import HandHistory
+from typing import Optional
 
 
 def evaluate_hand(hand_history: HandHistory) -> None:
-    
-    print("\nEnter 'exit' to quit or stop the program at any point of time.")
-    print(
-        "\nValid card ranks: 2-10, valid card suits: 'spades', 'hearts', 'diamonds', or clubs."
+
+    console = Console()
+
+    console.print(
+        "\n[bold red]Enter 'exit' to quit or stop the program at any point of time.[/bold red]"
+    )
+    console.print(
+        "\n[bold yellow]Valid card ranks: 2-10, valid card suits: 'spades', 'hearts', 'diamonds', or clubs.[/bold yellow]"
     )
 
     while True:
 
         deck = Deck()
         deck.shuffle()
-        console = Console()
-        
-        while True:
-            num_players_input = input(
-                "\nEnter the number of players (2-10, including you): "
-            )
-            if num_players_input == "exit":
-                print("\nExiting hand evaluation.")
-                return
-            try:
-                num_players = int(num_players_input)
-                if 2 <= num_players <= 10:
-                    break
-                else:
-                    print("\nPlease enter a number between 2 and 10.")
-            except ValueError:
-                print(
-                    "\nInvalid input. Please enter a valid number of players between 2 and 10"
-                )
 
-        selected_cards: set = set()
+        num_players = get_number_of_players()
+        if num_players == None:
+            break
+        selected_cards = get_player_cards(deck)
+        if selected_cards == None:
+            break
 
-        while True:
-            card1_input: str = input("\nEnter your first card (e.g., 'A of spades'): ")
-            if card1_input == "exit":
-                print("\nExiting hand evaluation")
-                return
-            card1 = validate_card_input(card1_input, deck)
-            if card1:
-                selected_cards.add(card1)
-                break
-
-        while True:
-            card2_input: str = input("\nEnter your second card (e.g., 'K of hearts'): ")
-            if card2_input == "exit":
-                print("\nExiting hand evaluation.")
-                return
-            card2 = validate_card_input(card2_input, deck)
-            if card2 and card2 not in selected_cards:
-                selected_cards.add(card2)
-                break
-            elif card2 in selected_cards:
-                print(
-                    "\nYou have already selected this card. Please choose a different one."
-                )
-
-        console.print(f"[bold blue]\nYour hand:[/bold blue]")
-        treys_cards = [TreysCard.new(to_treys_format(card)) for card in [card1, card2]]
-        TreysCard.print_pretty_cards(treys_cards)
+        display_player_hand(console, selected_cards)
 
         opponent_hands = simulate_opponent_hands(
-            [card1, card2], num_opponents=num_players - 1
+            list(selected_cards), num_opponents=num_players - 1
         )
-        for i, cards in enumerate(opponent_hands, start=1):
-            console.print(f"\n[bold magenta]Opponent {i}:[/bold magenta]")
-            treys_cards = [TreysCard.new(to_treys_format(card)) for card in cards]
-            TreysCard.print_pretty_cards(treys_cards)
+
+        display_opponent_hands(console, opponent_hands)
 
         win_probability: float = calculate_win_probability(
-            [card1, card2], opponent_hands
+            list(selected_cards), opponent_hands
         )
         console.print(
             f"\n[bold yellow]Win Probability:[/bold yellow] {win_probability:.2f}%"
@@ -89,12 +52,71 @@ def evaluate_hand(hand_history: HandHistory) -> None:
         console.print(f"\n[bold green]Suggested Move:[/bold green] {best_move}")
 
         hand_history.add_hand(
-            [card1, card2], opponent_hands, win_probability, best_move
+            list(selected_cards), opponent_hands, win_probability, best_move
         )
 
-        continuous_choice: str = input(
-            "\nType 'yes' to 'continue' or 'no' to quit the 'Hand evaluation' mode: "
+
+def get_number_of_players() -> Optional[int]:
+
+    while True:
+        num_players_input = input(
+            "\nEnter the number of players (2-10, including you): "
         )
-        if continuous_choice == "no":
+        if num_players_input == "exit":
             print("\nExiting hand evaluation.")
+            return None
+        try:
+            num_players = int(num_players_input)
+            if 2 <= num_players <= 10:
+                return num_players
+            else:
+                print("\nPlease enter a number between 2 and 10.")
+        except ValueError:
+            print(
+                "\nInvalid input. Please enter a valid number of players between 2 and 10"
+            )
+
+
+def get_player_cards(deck: Deck) -> Optional[set]:
+
+    selected_cards: set = set()
+
+    while True:
+        card1_input: str = input("\nEnter your first card (e.g., 'A of spades'): ")
+        if card1_input == "exit":
+            print("\nExiting hand evaluation")
+            return None
+        card1 = validate_card_input(card1_input, deck)
+        if card1:
+            selected_cards.add(card1)
             break
+
+    while True:
+        card2_input: str = input("\nEnter your second card (e.g., 'K of hearts'): ")
+        if card2_input == "exit":
+            print("\nExiting hand evaluation.")
+            return None
+        card2 = validate_card_input(card2_input, deck)
+        if card2 and card2 not in selected_cards:
+            selected_cards.add(card2)
+            break
+        elif card2 in selected_cards:
+            print(
+                "\nYou have already selected this card. Please choose a different one."
+            )
+
+    return selected_cards
+
+
+def display_player_hand(console: Console, selected_cards: set) -> None:
+    console.print(f"[bold blue]\nYour hand:[/bold blue]")
+    treys_cards = [TreysCard.new(to_treys_format(card)) for card in selected_cards]
+    TreysCard.print_pretty_cards(treys_cards)
+
+
+def display_opponent_hands(console: Console, opponent_hands: list) -> None:
+
+    for i, cards in enumerate(opponent_hands, start=1):
+        console.print(f"\n[bold magenta]Opponent {i}:[/bold magenta]")
+        treys_cards = [TreysCard.new(to_treys_format(card)) for card in cards]
+        TreysCard.print_pretty_cards(treys_cards)

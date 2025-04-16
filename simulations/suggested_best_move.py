@@ -1,5 +1,3 @@
-
-
 def suggest_best_move(win_probability: float, num_players: int) -> str:
 
     if num_players <= 3:
