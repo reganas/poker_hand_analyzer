@@ -51,7 +51,7 @@ This project simulates a poker hand evaluator that evaluates the player's and op
 
 ## 1. Clone the repository:
 
-- git clone https://github.com/your-repo/poker-hand-analyzer.git
+- git clone git@github.com:reganas/poker_hand_analyzer.git
 - cd poker-hand-analyzer
 
 ## 2. Install necessary packages using:
